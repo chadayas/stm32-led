@@ -1,0 +1,14 @@
+  
+  manifest:
+    projects:
+      - name: zephyr
+        url: https://github.com/zephyrproject-rtos/zephyr
+        revision: v4.4.0
+        clone-depth: 1
+        import:
+          name-blocklist:
+            - "*"
+          name-allowlist:
+            - hal_stm32
+            - cmsis_6            
+
