@@ -1,31 +1,17 @@
-extern "C" {
-#include <stm32f4xx_hal_gpio.h>
-}
+#include <zephyr/kernel.h>
+#include <zephyr/drivers/gpio.h>
 
-// Nucleo F446RE - LD2 is on PA5
-#define LED_PIN  GPIO_PIN_5
-#define LED_PORT GPIOA
+#define LED_NODE DT_ALIAS(led0)
 
-static void led_init(void)
-{
-    __HAL_RCC_GPIOA_CLK_ENABLE();
-
-    GPIO_InitTypeDef gpio = {};
-    gpio.Pin   = LED_PIN;
-    gpio.Mode  = GPIO_MODE_OUTPUT_PP;
-    gpio.Pull  = GPIO_NOPULL;
-    gpio.Speed = GPIO_SPEED_FREQ_LOW;
-    HAL_GPIO_Init(LED_PORT, &gpio);
-}
+static const struct gpio_dt_spec led = GPIO_DT_SPEC_GET(LED_NODE, gpios);
 
 int main(void)
 {
-    HAL_Init();
-    led_init();
+    gpio_pin_configure_dt(&led, GPIO_OUTPUT_ACTIVE);
 
     while (1) {
-        HAL_GPIO_TogglePin(LED_PORT, LED_PIN);
-        HAL_Delay(500);
+        gpio_pin_toggle_dt(&led);
+        k_msleep(500);
     }
 
     return 0;
