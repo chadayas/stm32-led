@@ -12,10 +12,16 @@ void led_strip_init(){
       LOG_ERR("LED strip device not ready");
       return;
    }
-   LOG_INF("LED strip ready, updating pixels");
-   struct led_rgb pixels[256]{0};
+   LOG_INF("LED strip ready");
+   static struct led_rgb pixels[256]{0};
    pixels[0].b = 255;
-   led_strip_update_rgb(dev, pixels, 256);
+   
+   auto update = led_strip_update_rgb(dev, pixels, 256);
+   if (update != 0){
+      LOG_ERR("LED strip was not updated");
+      return;  
+   } else
+      LOG_INF("update was fine");
 }
 
 
