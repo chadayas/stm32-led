@@ -14,10 +14,10 @@
 		color-mapping = <LED_COLOR_ID_GREEN
 				 LED_COLOR_ID_RED
 				 LED_COLOR_ID_BLUE>;
-		spi-one-frame = <0xE>;
-		spi-zero-frame = <0x8>;
-		bits-per-symbol = <4>;
-		reset-delay = <280>;
+		spi-one-frame = <0xFE>;
+		spi-zero-frame = <0xE0>;
+		bits-per-symbol = <8>;
+		reset-delay = <500>;
 	};
 };
 
